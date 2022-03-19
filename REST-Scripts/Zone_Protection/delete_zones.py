@@ -17,17 +17,23 @@ def get_zone(uri, username, password, parameters):
     
     for zone_dictionary in zone_list:
         zone_name = zone_dictionary['@name']
-        rprint(f"The zones that you have available are: [red]{zone_name}[/red]")
+        rprint(f"The zones that you have available are: [green]{zone_name}[/green]")
     
-    zone_deletion = input("What zone would you like to delete?")
+    zone_deletion = input("What zone would you like to delete?\n")
     
-    if zone_deletion == zone_name:
-        delete_zone():
-    else:
-        print(f"[red]{zone_name}[/red] doesn't exist, please use a valid zone name.")
+    for zone_dictionary in zone_list:
+        if zone_deletion == zone_name:
+            delete_parameters = {'location' : 'vsys', 'vsys' : 'vsys1', 'name' : f'{zone_name}'}
+            delete_zone(zone_uri, username, password, delete_parameters)
+        else:
+            rprint(f"[red]{zone_deletion}[/red] doesn't exist, please use a valid zone name.")
+            rprint(zone_name)
 
-def delete_zone():
-    pass
+def delete_zone(uri, username, password, zone_name, parameters):
+    zone_delete_request = requests.delete(zone_uri, username, password, params=parameters, verify=False)
+    zone_delete_response = zone_delete_request.json()
+    rprint(zone_delete_response)
+    
 get_zone(zone_uri, username, password, parameters)
 
 
