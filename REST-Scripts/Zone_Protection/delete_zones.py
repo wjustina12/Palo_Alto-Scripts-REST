@@ -26,11 +26,11 @@ def get_zone(uri, username, password, parameters):
             delete_parameters = {'location' : 'vsys', 'vsys' : 'vsys1', 'name' : f'{zone_name}'}
             delete_zone(zone_uri, username, password, delete_parameters)
         else:
-            rprint(f"[red]{zone_deletion}[/red] doesn't exist, please use a valid zone name.")
-            rprint(zone_name)
-
-def delete_zone(uri, username, password, zone_name, parameters):
-    zone_delete_request = requests.delete(zone_uri, username, password, params=parameters, verify=False)
+            rprint(f"[red]{zone_deletion}[/red] doesn't exist, please reference a valid zone.")
+            
+        
+def delete_zone(uri, username, password, parameters):
+    zone_delete_request = requests.delete(zone_uri, auth=(username, password), params=parameters, verify=False)
     zone_delete_response = zone_delete_request.json()
     rprint(zone_delete_response)
     
