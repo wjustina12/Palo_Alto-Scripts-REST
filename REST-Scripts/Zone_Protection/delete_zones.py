@@ -25,7 +25,7 @@ def get_zone(uri, username, password, parameters):
         if zone_deletion == zone_name:
             delete_parameters = {'location' : 'vsys', 'vsys' : 'vsys1', 'name' : f'{zone_name}'}
             delete_zone(zone_uri, username, password, delete_parameters)
-        else:
+        elif zone_deletion != zone_name:
             rprint(f"[red]{zone_deletion}[/red] doesn't exist, please reference a valid zone.")
             
         
